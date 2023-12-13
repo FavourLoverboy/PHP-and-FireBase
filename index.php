@@ -31,6 +31,12 @@
                 <div class="card-body">
                     <h4>
                         How to Retrieve/Fetch Data from Firebase (Database) using PHP
+                        <?php
+                        
+                            $totalRowNum = $database->getReference('contact')->getSnapshot()->numChildren();
+
+                        ?>
+                        <a href='#' class='btn btn-info mr-3 text-white'>Total No: <?php echo $totalRowNum; ?></a>
                         <a href="insert.php" class="btn btn-primary float-end">Add</a>
                     </h4>
                     <div class="table-responsive">
@@ -51,7 +57,7 @@
                                     $reference = $database->getReference('contact')->getValue();
                                     if($reference > 0){
                                         $i = 1;
-                                        foreach($reference as $row){
+                                        foreach($reference as $key => $row){
                                             extract($row);
                                             echo "
                                                 <tr>
@@ -60,10 +66,13 @@
                                                     <td>$email</td>
                                                     <td>$phone</td>
                                                     <td>
-                                                        <a href='' class='btn btn-primary'>Edit</a>
+                                                        <a href='edit.php?token=$key' class='btn btn-primary'>Edit</a>
                                                     </td>
                                                     <td>
-                                                        <a href='' class='btn btn-danger'>Delete</a>
+                                                        <form action='code.php' method='POST'>
+                                                            <input type='hidden' name='ref_code_delete' value='$key'>
+                                                            <button type='submit' name='delete_data' class='btn btn-danger'>Delete</button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             ";
