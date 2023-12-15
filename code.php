@@ -4,15 +4,49 @@
     if(isset($_POST['save_push_data'])){
         extract($_POST);
 
+        // $data = [
+        //     'username' => $username,
+        //     'email' => $email,
+        //     'phone' => $phone
+        // ];
+
+        $data = [
+            'content' => [
+                'link' => 'path/to/content',
+                'type' => 'content/type'
+            ],
+            "status_privacy" => [
+                "viewable_users" => ["2", "5", "7"]
+            ],
+            'created_at' => time()
+        ];
+        $postData = $database->getReference('status/1')->push($data);
+
+        $username = 'lara';
         $data = [
             'username' => $username,
-            'email' => $email,
-            'phone' => $phone
+            "profile" => "path/$username"
         ];
+        $postData = $database->getReference('users/2')->set($data);
+
+
+
+
+
+
+
+        $data = [
+            'user_id' => 2,
+            'username' => 'my_name',
+            'profile' => 'path/to/my/profile',
+            "viewed_at" => time()
+        ];
+        $status_id = 'fhsudfhwiehkwee';
+        $postData = $database->getReference('status_view/1/' . $status_id)->push($data);
 
         // $postData = $database->getReference('contact')->set($data);
         // $postData = $database->getReference('contact')->update($data);
-        $postData = $database->getReference('contact')->push($data);
+        // $postData = $database->getReference('status')->push($data);
 
         if($postData){
             $_SESSION['status'] = "Data Inserted Successfully";

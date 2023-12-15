@@ -33,7 +33,7 @@
                         How to Retrieve/Fetch Data from Firebase (Database) using PHP
                         <?php
                         
-                            $totalRowNum = $database->getReference('contact')->getSnapshot()->numChildren();
+                            $totalRowNum = $database->getReference('status')->getSnapshot()->numChildren();
 
                         ?>
                         <a href='#' class='btn btn-info mr-3 text-white'>Total No: <?php echo $totalRowNum; ?></a>
